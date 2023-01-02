@@ -1,7 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Board;
+using DirBoard;
 
-Position P;
-P = new Position(3, 4);
-Console.WriteLine("Posição " + P);
+Board board = new Board(8, 8);
+
 Console.ReadLine();
