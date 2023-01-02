@@ -10,7 +10,7 @@ try
     board.PushPiece(new TowerPiece(board, Color.Black), new Position(0, 0));
     board.PushPiece(new KingPiece(board, Color.Black), new Position(0, 2));
     board.PushPiece(new TowerPiece(board, Color.Black), new Position(1, 4));
-    board.PushPiece(new KingPiece(board, Color.Yellow), new Position(2, 9));
+    board.PushPiece(new TowerPiece(board, Color.White), new Position(3, 2));
 
     Screen.PrintBoardGame(board);
 }
