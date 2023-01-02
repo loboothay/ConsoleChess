@@ -1,6 +1,6 @@
 ﻿using DirBoard;
 
-namespace ConsoleChess.Design
+namespace Design
 {
     public class Screen
     {

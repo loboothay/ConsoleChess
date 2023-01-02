@@ -7,9 +7,9 @@
         public int MovimentsQtd {get; protected set;}
         public Board board { get; protected set; }
 
-        public ChessPiece(Position position, Color color, Board board)
+        public ChessPiece(Board board, Color color)
         {
-            this.position = position;
+            this.position = null;
             this.color = color;
             MovimentsQtd = 0;
             this.board = board;

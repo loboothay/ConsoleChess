@@ -23,5 +23,11 @@ namespace DirBoard
         {
             return ChessPieces[line, columns];
         }
+
+        public void PushPiece(ChessPiece piece, Position position)
+        {
+            ChessPieces[position.Line, position.Column] = piece;
+            piece.position = position;
+        }
     }
 }
