@@ -46,6 +46,18 @@ namespace DirBoard
             piece.position = position;
         }
 
+        public ChessPiece RemovePiece(Position position)
+        {
+            if (Piece(position) == null)
+            {
+                return null;
+            }
+            ChessPiece aux = Piece(position);
+            aux.position = null;
+            ChessPieces[position.Line, position.Column] = null;
+            return aux;
+        }
+
         public bool ValidPosition(Position position)
         {
             if(position.Line<0 || position.Line>=Lines || position.Column<0 || position.Column >= Columns)

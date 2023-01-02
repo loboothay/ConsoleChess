@@ -2,17 +2,26 @@
 using Design;
 using DirBoard;
 using Chess;
+using ConsoleChess.Chess;
 
 try
 {
-    Board board = new Board(8, 8);
+    StartChess matchChess = new StartChess();
 
-    board.PushPiece(new TowerPiece(board, Color.Black), new Position(0, 0));
-    board.PushPiece(new KingPiece(board, Color.Black), new Position(0, 2));
-    board.PushPiece(new TowerPiece(board, Color.Black), new Position(1, 4));
-    board.PushPiece(new TowerPiece(board, Color.White), new Position(3, 2));
+    while (!matchChess.Finished)
+    {
+        Console.Clear();
+        Screen.PrintBoardGame(matchChess.board);
+        Console.WriteLine();
+        Console.Write("Origin:");
+        Position origin = Screen.WritePositionChess().toPosition();
+        Console.Write("Target:");
+        Position target = Screen.WritePositionChess().toPosition();
 
-    Screen.PrintBoardGame(board);
+        matchChess.ExecuteMovement(origin, target);
+    }
+
+
 }
 catch (Exception e)
 {

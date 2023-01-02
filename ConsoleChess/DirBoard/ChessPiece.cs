@@ -14,5 +14,10 @@
             MovimentsQtd = 0;
             this.board = board;
         }
+
+        public void AddMovedMovements()
+        {
+            MovimentsQtd++;
+        }
     }
 }

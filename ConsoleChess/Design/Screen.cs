@@ -1,4 +1,5 @@
-﻿using DirBoard;
+﻿using Chess;
+using DirBoard;
 
 namespace Design
 {
@@ -25,6 +26,15 @@ namespace Design
             }
             Console.WriteLine("  A B C D E F G H");
         }
+
+        public static ChessPosition WritePositionChess()
+        {
+            string s = Console.ReadLine();
+            char line = s[0];
+            int column = int.Parse(s[1] + "");
+            return new ChessPosition(line, column);
+        }
+
 
         public static void PrintPiece(ChessPiece piece)
         {
