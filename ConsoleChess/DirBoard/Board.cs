@@ -18,5 +18,10 @@ namespace DirBoard
             Columns = columns;
             ChessPieces = new ChessPiece[Lines, Columns];
         }
+
+        public ChessPiece Piece(int line, int columns)
+        {
+            return ChessPieces[line, columns];
+        }
     }
 }
