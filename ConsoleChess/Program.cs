@@ -3,12 +3,21 @@ using Design;
 using DirBoard;
 using Chess;
 
-Board board = new Board(8, 8);
+try
+{
+    Board board = new Board(8, 8);
 
-board.PushPiece(new TowerPiece(board, Color.Black), new Position(0, 0));
-board.PushPiece(new TowerPiece(board, Color.Black), new Position(1, 4));
-board.PushPiece(new KingPiece(board, Color.Yellow), new Position(2, 5));
+    board.PushPiece(new TowerPiece(board, Color.Black), new Position(0, 0));
+    board.PushPiece(new KingPiece(board, Color.Black), new Position(0, 2));
+    board.PushPiece(new TowerPiece(board, Color.Black), new Position(1, 4));
+    board.PushPiece(new KingPiece(board, Color.Yellow), new Position(2, 9));
 
-Screen.PrintBoardGame(board);
+    Screen.PrintBoardGame(board);
+}
+catch (Exception e)
+{
+
+    Console.WriteLine(e.Message);
+}
 
 Console.ReadLine();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,42 @@ namespace DirBoard
             return ChessPieces[line, columns];
         }
 
+        public ChessPiece Piece(Position position)
+        {
+            return ChessPieces[position.Line, position.Column];
+        }
+
+        public bool ExistPiece(Position position)
+        {
+            ValidatePosition(position);
+            return Piece(position) != null;
+        }
+
         public void PushPiece(ChessPiece piece, Position position)
         {
+            if(ExistPiece(position))
+            {
+                throw new BoardException("A piece already exists in this position");
+            }
             ChessPieces[position.Line, position.Column] = piece;
             piece.position = position;
+        }
+
+        public bool ValidPosition(Position position)
+        {
+            if(position.Line<0 || position.Line>=Lines || position.Column<0 || position.Column >= Columns)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void ValidatePosition(Position position)
+        {
+            if (!ValidPosition(position))
+            {
+                throw new BoardException("Invalid Position");
+            }
         }
     }
 }
