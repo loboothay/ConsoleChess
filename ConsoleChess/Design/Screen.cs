@@ -88,6 +88,10 @@ namespace Design
             Console.WriteLine();
             Console.WriteLine("Shift : " + matchChess.Shift);
             Console.WriteLine("Waiting current move: " + matchChess.CurrentPlayer);
+            if (matchChess.Check)
+            {
+                Console.WriteLine("Check");
+            }
         }
 
         public static void PrintCapturedPieces(StartChess matchChess)

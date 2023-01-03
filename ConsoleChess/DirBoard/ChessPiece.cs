@@ -20,6 +20,11 @@
             MovimentsQtd++;
         }
 
+        public void UndoMovedMovements()
+        {
+            MovimentsQtd--;
+        }
+
         public bool ExistingMovemientsPossibles()
         {
             bool[,] kill = PossibleMovements();
