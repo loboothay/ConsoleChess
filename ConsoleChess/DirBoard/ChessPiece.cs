@@ -19,6 +19,28 @@
         {
             MovimentsQtd++;
         }
+
+        public bool ExistingMovemientsPossibles()
+        {
+            bool[,] kill = PossibleMovements();
+            for (int i = 0; i < board.Lines; i++)
+            {
+                for (int j = 0; j < board.Columns; j++)
+                {
+                    if (kill[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanMoveToPosition(Position pos)
+        {
+            return PossibleMovements()[pos.Line, pos.Column];
+        }
+
         public abstract bool[,] PossibleMovements();
     }
 }

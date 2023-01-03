@@ -3,6 +3,7 @@ using Design;
 using DirBoard;
 using Chess;
 using ConsoleChess.Chess;
+using Exceptions;
 
 try
 {
@@ -10,28 +11,42 @@ try
 
     while (!matchChess.Finished)
     {
-        Console.Clear();
-        Screen.PrintBoardGame(matchChess.board);
+		try
+		{
+            Console.Clear();
+            Screen.PrintBoardGame(matchChess.board);
+            Console.WriteLine();
+            Console.WriteLine("Shift : " + matchChess.Shift);
+            Console.WriteLine("Waiting current move: " + matchChess.CurrentPlayer);
 
-        Console.WriteLine();
-        Console.Write("Origin:");
-        Position origin = Screen.WritePositionChess().toPosition();
+            Console.WriteLine();
+            Console.Write("Origin:");
+            Position origin = Screen.WritePositionChess().toPosition();
+            matchChess.ValidPositionOrigin(origin);
 
-        bool[,] possiblePositions = matchChess.board.Piece(origin).PossibleMovements();
+            bool[,] possiblePositions = matchChess.board.Piece(origin).PossibleMovements();
 
-        Console.Clear();
-        Screen.PrintBoardGame(matchChess.board, possiblePositions);
+            Console.Clear();
+            Screen.PrintBoardGame(matchChess.board, possiblePositions);
 
-        Console.WriteLine();
-        Console.Write("Target:");
-        Position target = Screen.WritePositionChess().toPosition();
+            Console.WriteLine();
+            Console.Write("Target:");
+            Position target = Screen.WritePositionChess().toPosition();
+            matchChess.ValidPositionTarget(origin, target);
 
-        matchChess.ExecuteMovement(origin, target);
+            matchChess.PerformGame(origin, target);
+        }
+		catch (BoardException ex)
+		{
+
+            Console.WriteLine(ex.Message);
+            Console.ReadLine();
+		}
     }
 
 
 }
-catch (Exception e)
+catch (BoardException e)
 {
 
     Console.WriteLine(e.Message);
