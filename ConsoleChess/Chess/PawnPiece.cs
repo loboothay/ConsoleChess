@@ -1,11 +1,5 @@
 ﻿using ConsoleChess.Chess;
 using DirBoard;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Chess
 {
@@ -57,7 +51,7 @@ namespace Chess
                 {
                     mat[pos.Line, pos.Column] = true;
                 }
-                pos.SetValues(position.Line - 1, position.Column+ 1);
+                pos.SetValues(position.Line - 1, position.Column + 1);
                 if (board.ValidPosition(pos) && ExistEnemy(pos))
                 {
                     mat[pos.Line, pos.Column] = true;

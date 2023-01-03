@@ -43,6 +43,25 @@ namespace ConsoleChess.Chess
             {
                 captured.Add(pieceTarget);
             }
+
+            if(piece is KingPiece && target.Column == origin.Column + 2)
+            {
+                Position originRook = new Position(origin.Line, origin.Column + 3); 
+                Position targetRook = new Position(origin.Line, origin.Column + 1);
+                ChessPiece rook = board.RemovePiece(originRook);
+                rook.AddMovedMovements();
+                board.PushPiece(rook, targetRook);
+            }
+
+            if (piece is KingPiece && target.Column == origin.Column - 2)
+            {
+                Position originRook = new Position(origin.Line, origin.Column - 4);
+                Position targetRook = new Position(origin.Line, origin.Column - 1);
+                ChessPiece rook = board.RemovePiece(originRook);
+                rook.AddMovedMovements();
+                board.PushPiece(rook, targetRook);
+            }
+
             return pieceTarget;
         }
 
@@ -86,6 +105,25 @@ namespace ConsoleChess.Chess
                 board.PushPiece(pieceCaptured, target);
                 captured.Remove(pieceCaptured);
             }
+
+            if (piece is KingPiece && target.Column == origin.Column + 2)
+            {
+                Position originRook = new Position(origin.Line, origin.Column + 3);
+                Position targetRook = new Position(origin.Line, origin.Column + 1);
+                ChessPiece rook = board.RemovePiece(originRook);
+                rook.UndoMovedMovements();
+                board.PushPiece(rook, targetRook);
+            }
+
+            if (piece is KingPiece && target.Column == origin.Column - 2)
+            {
+                Position originRook = new Position(origin.Line, origin.Column - 4);
+                Position targetRook = new Position(origin.Line, origin.Column - 1);
+                ChessPiece rook = board.RemovePiece(originRook);
+                rook.UndoMovedMovements();
+                board.PushPiece(rook, targetRook);
+            }
+
             board.PushPiece(piece, origin);
         }
 
@@ -237,7 +275,7 @@ namespace ConsoleChess.Chess
             PushNewPiece('b', 1, new KnightPiece(board, Color.White));
             PushNewPiece('c', 1, new BishopPiece(board, Color.White));
             PushNewPiece('d', 1, new QueenPiece(board, Color.White));
-            PushNewPiece('e', 1, new KingPiece(board,Color.White));
+            PushNewPiece('e', 1, new KingPiece(board,Color.White, this));
             PushNewPiece('f', 1, new BishopPiece(board, Color.White));
             PushNewPiece('g', 1, new KnightPiece(board, Color.White));
             PushNewPiece('h', 1, new RookPiece(board, Color.White));
@@ -254,7 +292,7 @@ namespace ConsoleChess.Chess
             PushNewPiece('b', 8, new KnightPiece(board, Color.Black));
             PushNewPiece('c', 8, new BishopPiece(board, Color.Black));
             PushNewPiece('d', 8, new QueenPiece(board, Color.Black));
-            PushNewPiece('e', 8, new KingPiece(board, Color.Black));
+            PushNewPiece('e', 8, new KingPiece(board, Color.Black, this));
             PushNewPiece('f', 8, new BishopPiece(board, Color.Black));
             PushNewPiece('g', 8, new KnightPiece(board, Color.Black));
             PushNewPiece('h', 8, new RookPiece(board, Color.Black));
