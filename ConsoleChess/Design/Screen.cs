@@ -1,4 +1,5 @@
 ﻿using Chess;
+using ConsoleChess.Chess;
 using DirBoard;
 
 namespace Design
@@ -76,6 +77,43 @@ namespace Design
                 }
                 Console.Write(" ");
             }            
+        }
+
+        public static void PrintCurrentMatch(StartChess matchChess)
+        {
+            PrintBoardGame(matchChess.board);
+
+            PrintCapturedPieces(matchChess);
+
+            Console.WriteLine();
+            Console.WriteLine("Shift : " + matchChess.Shift);
+            Console.WriteLine("Waiting current move: " + matchChess.CurrentPlayer);
+        }
+
+        public static void PrintCapturedPieces(StartChess matchChess)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Captured pieces: ");
+            Console.Write("White: ");
+            PrintingSet(matchChess.PiecesCaptured(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintingSet(matchChess.PiecesCaptured(Color.Black));
+            Console.ForegroundColor= aux;
+            Console.WriteLine();
+        }
+
+        public static void PrintingSet(HashSet<ChessPiece> chessPieces)
+        {
+            Console.Write("[");
+            foreach (ChessPiece x in chessPieces)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
         }
     }
 }

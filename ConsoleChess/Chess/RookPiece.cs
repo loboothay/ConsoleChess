@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Chess
 {
-    public class TowerPiece : ChessPiece
+    public class RookPiece : ChessPiece
     {
-        public TowerPiece(Board board, Color color) : base(board, color)
+        public RookPiece(Board board, Color color) : base(board, color)
         {
         }
 

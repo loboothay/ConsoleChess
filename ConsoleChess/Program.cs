@@ -14,10 +14,7 @@ try
 		try
 		{
             Console.Clear();
-            Screen.PrintBoardGame(matchChess.board);
-            Console.WriteLine();
-            Console.WriteLine("Shift : " + matchChess.Shift);
-            Console.WriteLine("Waiting current move: " + matchChess.CurrentPlayer);
+            Screen.PrintCurrentMatch(matchChess);
 
             Console.WriteLine();
             Console.Write("Origin:");
