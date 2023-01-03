@@ -28,6 +28,7 @@ namespace ConsoleChess.Chess
             Shift = 1;
             CurrentPlayer = Color.White;
             Finished = false;
+            vulneravelEnPassant = null;
             pieces = new HashSet<ChessPiece>();
             captured = new HashSet<ChessPiece>();
             PushPieces();
@@ -62,7 +63,24 @@ namespace ConsoleChess.Chess
                 board.PushPiece(rook, targetRook);
             }
 
-            return pieceTarget;
+            if (piece is RookPiece)
+            {
+                if (origin.Column != target.Column && pieceTarget == null)
+                {
+                    Position posP;
+                    if (piece.color == Color.White)
+                    {
+                        posP = new Position(target.Line + 1, target.Column);
+                    }
+                    else
+                    {
+                        posP = new Position(target.Line - 1, target.Column);
+                    }
+                    pieceTarget = board.RemovePiece(posP);
+                    captured.Add(pieceTarget);
+                }
+            }
+                return pieceTarget;            
         }
 
         public void PerformGame(Position origin, Position target)
@@ -73,6 +91,21 @@ namespace ConsoleChess.Chess
             {
                 UndoMove(origin, target, pieceCaptured);
                 throw new BoardException("You can't put yourself in check");
+            }
+
+            ChessPiece piece = board.Piece(target);
+
+
+            if(piece is RookPiece)
+            {
+                if((piece.color == Color.White && target.Line == 0) || (piece.color == Color.Black && target.Line == 7))
+                {
+                    piece = board.RemovePiece(target);
+                    pieces.Remove(piece);
+                    ChessPiece queen = new QueenPiece(board, piece.color);
+                    board.PushPiece(queen, target);
+                    pieces.Add(queen);
+                }
             }
 
             if (IsInCheck(AdversaryColor(CurrentPlayer)))
@@ -93,7 +126,16 @@ namespace ConsoleChess.Chess
                 Shift++;
                 InvertPlayer();
             }
-            
+
+            // en passant
+            if (piece is RookPiece && (target.Line == origin.Line - 2 || target.Line == origin.Line + 2))
+            {
+                vulneravelEnPassant = piece;
+            }
+            else
+            {
+                vulneravelEnPassant = null;
+            }
         }
 
         public void UndoMove(Position origin, Position target, ChessPiece pieceCaptured)
@@ -124,7 +166,23 @@ namespace ConsoleChess.Chess
                 board.PushPiece(rook, targetRook);
             }
 
-            board.PushPiece(piece, origin);
+            if (piece is RookPiece)
+            {
+                if (origin.Column != target.Column && pieceCaptured == vulneravelEnPassant)
+                {
+                    ChessPiece rook = board.RemovePiece(origin);
+                    Position posP;
+                    if(piece.color == Color.White)
+                    {
+                        posP = new Position(3, target.Column);
+                    }
+                    else
+                    {
+                        posP = new Position(4,target.Column);
+                    }
+                    board.PushPiece(rook, posP);
+                }
+            }
         }
 
         public void ValidPositionOrigin(Position pos)

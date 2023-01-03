@@ -44,7 +44,7 @@ namespace Chess
                 Position p2 = new Position(position.Line - 1, position.Column);
                 if (board.ValidPosition(p2) && Free(p2) && board.ValidPosition(pos) && Free(pos) && MovimentsQtd == 0)
                 {
-                    mat[position.Line, pos.Column] = true;
+                    mat[pos.Line, pos.Column] = true;
                 }
                 pos.SetValues(position.Line - 1, position.Column - 1);
                 if (board.ValidPosition(pos) && ExistEnemy(pos))
@@ -96,13 +96,13 @@ namespace Chess
                     mat[pos.Line, pos.Column] = true;
                 }
 
-                // #jogadaespecial en passant
+                //en passant
                 if (position.Line == 4)
                 {
                     Position left = new Position(position.Line, position.Column - 1);
                     if (board.ValidPosition(left) && ExistEnemy(left) && board.Piece(left) == chessmatches.vulneravelEnPassant)
                     {
-                        mat[left.Line + 1, left.Line] = true;
+                        mat[left.Line + 1, left.Column] = true;
                     }
                     Position right = new Position(position.Line, position.Column + 1);
                     if (board.ValidPosition(right) && ExistEnemy(right) && board.Piece(right) == chessmatches.vulneravelEnPassant)
