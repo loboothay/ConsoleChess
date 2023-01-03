@@ -64,8 +64,16 @@ namespace ConsoleChess.Chess
                 Check= false;
             }
 
-            Shift++;
-            InvertPlayer();
+            if (IsInCheckmate(AdversaryColor(CurrentPlayer)))
+            {
+                Finished= true;
+            }
+            else
+            {
+                Shift++;
+                InvertPlayer();
+            }
+            
         }
 
         public void UndoMove(Position origin, Position target, ChessPiece pieceCaptured)
@@ -183,6 +191,37 @@ namespace ConsoleChess.Chess
                 }
             }
             return false;
+        }
+
+        public bool IsInCheckmate(Color color)
+        {
+            if (!IsInCheck(color))
+            {
+                return false;
+            }
+            foreach (ChessPiece x in PiecesInGame(color))
+            {
+                bool[,] mat = x.PossibleMovements();
+                for (int i = 0; i < board.Lines; i++)
+                {
+                    for (int j = 0; j < board.Columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position target = new Position(i, j);
+                            ChessPiece pecaCapturada = ExecuteMovement(origin, target);
+                            bool testeCheckmate = IsInCheck(color);
+                            ExecuteMovement(origin, target);
+                            if (!testeCheckmate)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         public void PushNewPiece(char column, int line, ChessPiece piece)

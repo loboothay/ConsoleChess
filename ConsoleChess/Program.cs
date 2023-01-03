@@ -41,7 +41,8 @@ try
 		}
     }
 
-
+    Console.Clear();
+    Screen.PrintCurrentMatch(matchChess);
 }
 catch (BoardException e)
 {

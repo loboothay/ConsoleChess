@@ -87,11 +87,20 @@ namespace Design
 
             Console.WriteLine();
             Console.WriteLine("Shift : " + matchChess.Shift);
-            Console.WriteLine("Waiting current move: " + matchChess.CurrentPlayer);
-            if (matchChess.Check)
+
+            if (!matchChess.Finished)
             {
-                Console.WriteLine("Check");
+                Console.WriteLine("Waiting current move: " + matchChess.CurrentPlayer);
+                if (matchChess.Check)
+                {
+                    Console.WriteLine("Check");
+                }
             }
+            else
+            {
+                Console.WriteLine("CHECKMATE!!");
+                Console.WriteLine("Winner: "+ matchChess.CurrentPlayer);
+            }            
         }
 
         public static void PrintCapturedPieces(StartChess matchChess)
