@@ -12,9 +12,17 @@ try
     {
         Console.Clear();
         Screen.PrintBoardGame(matchChess.board);
+
         Console.WriteLine();
         Console.Write("Origin:");
         Position origin = Screen.WritePositionChess().toPosition();
+
+        bool[,] possiblePositions = matchChess.board.Piece(origin).PossibleMovements();
+
+        Console.Clear();
+        Screen.PrintBoardGame(matchChess.board, possiblePositions);
+
+        Console.WriteLine();
         Console.Write("Target:");
         Position target = Screen.WritePositionChess().toPosition();
 

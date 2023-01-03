@@ -1,6 +1,6 @@
 ﻿namespace DirBoard
 {
-    public class ChessPiece
+    public abstract class ChessPiece
     {
         public Position position { get; set; }
         public Color color { get; protected set; }
@@ -19,5 +19,6 @@
         {
             MovimentsQtd++;
         }
+        public abstract bool[,] PossibleMovements();
     }
 }

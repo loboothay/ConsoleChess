@@ -38,6 +38,7 @@ namespace ConsoleChess.Chess
             board.PushPiece(new TowerPiece(board, Color.White), new ChessPosition('a', 1).toPosition());
             board.PushPiece(new TowerPiece(board, Color.Black), new ChessPosition('c', 7).toPosition());
             board.PushPiece(new TowerPiece(board, Color.Black), new ChessPosition('e', 8).toPosition());
+            board.PushPiece(new KingPiece(board, Color.Black), new ChessPosition('f', 1).toPosition());
         }
     }
 }
