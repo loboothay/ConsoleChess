@@ -20,6 +20,7 @@ namespace ConsoleChess.Chess
         private HashSet<ChessPiece> pieces;
         private HashSet<ChessPiece> captured;
         public bool Check { get; private set; } = false;
+        public ChessPiece vulneravelEnPassant { get; private set; }
 
         public StartChess()
         {
@@ -212,7 +213,7 @@ namespace ConsoleChess.Chess
                             Position target = new Position(i, j);
                             ChessPiece pecaCapturada = ExecuteMovement(origin, target);
                             bool testeCheckmate = IsInCheck(color);
-                            ExecuteMovement(origin, target);
+                            UndoMove(origin, target, pecaCapturada);
                             if (!testeCheckmate)
                             {
                                 return false;
@@ -233,38 +234,38 @@ namespace ConsoleChess.Chess
         private void PushPieces()
         {
             PushNewPiece('a', 1, new RookPiece(board, Color.White));
-            //PushNewPiece('b', 1, new KnightPiece(board, Color.White));
-            //PushNewPiece('c', 1, new BishopPiece(board, Color.White));
-            //PushNewPiece('d', 1, new QueenPiece(board, Color.White));
+            PushNewPiece('b', 1, new KnightPiece(board, Color.White));
+            PushNewPiece('c', 1, new BishopPiece(board, Color.White));
+            PushNewPiece('d', 1, new QueenPiece(board, Color.White));
             PushNewPiece('e', 1, new KingPiece(board,Color.White));
-            //PushNewPiece('f', 1, new BishopPiece(board, Color.White));
-            //PushNewPiece('g', 1, new KnightPiece(board, Color.White));
+            PushNewPiece('f', 1, new BishopPiece(board, Color.White));
+            PushNewPiece('g', 1, new KnightPiece(board, Color.White));
             PushNewPiece('h', 1, new RookPiece(board, Color.White));
-            //PushNewPiece('a', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('b', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('c', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('d', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('e', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('f', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('g', 2, new PawnPiece(board, Color.White, this));
-            //PushNewPiece('h', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('a', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('b', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('c', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('d', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('e', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('f', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('g', 2, new PawnPiece(board, Color.White, this));
+            PushNewPiece('h', 2, new PawnPiece(board, Color.White, this));
 
             PushNewPiece('a', 8, new RookPiece(board, Color.Black));
-            //PushNewPiece('b', 8, new KnightPiece(board, Color.Black));
-            //PushNewPiece('c', 8, new BishopPiece(board, Color.Black));
-            //PushNewPiece('d', 8, new QueenPiece(board, Color.Black));
+            PushNewPiece('b', 8, new KnightPiece(board, Color.Black));
+            PushNewPiece('c', 8, new BishopPiece(board, Color.Black));
+            PushNewPiece('d', 8, new QueenPiece(board, Color.Black));
             PushNewPiece('e', 8, new KingPiece(board, Color.Black));
-            //PushNewPiece('f', 8, new BishopPiece(board, Color.Black));
-            //PushNewPiece('g', 8, new KnightPiece(board, Color.Black));
+            PushNewPiece('f', 8, new BishopPiece(board, Color.Black));
+            PushNewPiece('g', 8, new KnightPiece(board, Color.Black));
             PushNewPiece('h', 8, new RookPiece(board, Color.Black));
-            //PushNewPiece('a', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('b', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('c', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('d', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('e', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('f', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('g', 7, new PawnPiece(board, Color.Black));
-            //PushNewPiece('h', 7, new PawnPiece(board, Color.Black));
+            PushNewPiece('a', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('b', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('c', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('d', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('e', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('f', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('g', 7, new PawnPiece(board, Color.Black, this));
+            PushNewPiece('h', 7, new PawnPiece(board, Color.Black, this));
         }
     }
 }
